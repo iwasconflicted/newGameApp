@@ -1,14 +1,20 @@
 ///All our imports we need
 
 import { SimpleGrid, Text } from "@chakra-ui/react";
-import useGames from "../hooks/useGames";
+import useGames, { Platform } from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
+import { Genre } from "../hooks/useGenres";
+import { GameQuery } from "../App";
 
-const GameGrid = () => {
+interface Props {
+  gameQuery: GameQuery
+}
+
+const GameGrid = ({gameQuery}:Props) => {
   //custom game hook
-  const { games, error, isLoading } = useGames();
+  const { data, error, isLoading } = useGames(gameQuery);
   //We other helper function to add, delete or update data
 
   const skeleton = [
@@ -20,19 +26,19 @@ const GameGrid = () => {
       {/* display our data ul li grid table usually map it with unique key  {1} 4px  */}
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
-        spacing={10}
+        spacing={3}
         padding={"20px"}
       >
         {isLoading &&
           skeleton.map((skeleton) => (
-            <GameCardContainer>
-              <GameCardSkeleton key={skeleton} />
+            <GameCardContainer key={skeleton}>
+              <GameCardSkeleton  />
             </GameCardContainer>
           ))}
 
-        {games.map((game) => (
-          <GameCardContainer>
-            <GameCard game={game} key={game.id}></GameCard>
+        {data.map((game) => (
+          <GameCardContainer key={game.id}>
+            <GameCard game={game} ></GameCard>
           </GameCardContainer>
         ))}
       </SimpleGrid>
