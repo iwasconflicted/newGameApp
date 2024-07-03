@@ -25,7 +25,7 @@ const GameGrid = ({gameQuery}:Props) => {
     <>
       {/* display our data ul li grid table usually map it with unique key  {1} 4px  */}
       <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
+        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
         spacing={3}
         padding={"20px"}
       >
